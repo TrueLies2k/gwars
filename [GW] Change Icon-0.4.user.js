@@ -6,7 +6,7 @@
 // @author       Respawn
 // @match        https://www.gwars.io/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=gwars.io
-// @updateURL    https://raw.githubusercontent.com/TrueLies2k/gwars/main/%5BGW%5D%20Change%20Icon-0.4.meta.js
+// @updateURL    https://raw.githubusercontent.com/TrueLies2k/gwars/main/%5BGW%5D%20Change%20Icon-0.4.user.js
 // @downloadURL  https://raw.githubusercontent.com/TrueLies2k/gwars/main/%5BGW%5D%20Change%20Icon-0.4.user.js
 // @grant        none
 // ==/UserScript==
