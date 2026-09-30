@@ -4,42 +4,60 @@
 // @updateURL        https://raw.githubusercontent.com/TrueLies2k/gwars/main/%5BGW%5D%20NPC%20info.user.js
 // @downloadURL      https://raw.githubusercontent.com/TrueLies2k/gwars/main/%5BGW%5D%20NPC%20info.user.js
 // @match            https://www.gwars.io/info.php?id=*
-// @version          0.2
+// @version          0.3
 // @author           Respawn
 // ==/UserScript==
 
 (function() {
-    var nps_name = document.querySelector("#namespan").textContent
+    const npsName = document.querySelector("#namespan").textContent;
 
-    if (nps_name.endsWith("[NPC]")) {
-        var nps_id = /info\.php\?id=(\d+)/i.exec(location.href)[1];
-        var b = document.querySelectorAll('td.greenbg_red')
+    if (npsName.endsWith("[NPC]")) {
+        const npsId = /info\.php\?id=(\d+)/i.exec(location.href)[1];
+        const greenBgRedCells = document.querySelectorAll('td.greenbg_red');
 
-        let td = document.createElement('td');
-        td.setAttribute('colspan', '2');
-        td.setAttribute('width', '100%');
-        td.setAttribute('class', 'greenbg_red');
-        td.setAttribute('align', 'center');
-        td.innerHTML = 'Статистика'
+        // Создаем элементы таблицы
+        const createTableCell = (content, attributes) => {
+            const td = document.createElement('td');
+            Object.entries(attributes).forEach(([key, value]) => td.setAttribute(key, value));
+            td.innerHTML = content;
+            return td;
+        };
 
-        let td1 = document.createElement('td');
-        td1.setAttribute('class', 'greenbrightbg');
-        td1.setAttribute('valign', 'top');
-        td1.setAttribute('align', 'right');
-        td1.innerHTML = '<nobr><a href="/usertransfers.php?id=' + nps_id + '" style="text-decoration:none;">Протокол передач денег и предметов</a> [<a href="/usertransfers.php?id=' + nps_id + '"><b>»</b></a>]&nbsp;&nbsp;</nobr>'
-        td1.innerHTML += '<br><a href="/info.warstats.php?id=' + nps_id + '" style="text-decoration:none;">Протоколы боёв</a>  [';
-        td1.innerHTML += '<a href="/info.warstats.php?id=' + nps_id + '"><b>»</b></a>]&nbsp;&nbsp;'
-        td1.innerHTML += '<br><nobr><a href="/info.ach.php?id=' + nps_id + '" style="text-decoration:none;">Достижения игрока</a> [<a href="/info.ach.php?id=' + nps_id + '"><b>»</b></a>]&nbsp;&nbsp;</nobr>'
-        
-        let td2 = document.createElement('td');
-        td2.setAttribute('class', 'greenbrightbg');
-        td2.setAttribute('valign', 'top');
-        td2.setAttribute('align', 'left');
+        const td = createTableCell('Статистика', {
+            colspan: '2',
+            width: '100%',
+            class: 'greenbg_red',
+            align: 'center'
+        });
 
-        var row = b[3].parentNode.parentNode.insertRow(5);
-        row.append(td);
-        var row1 = b[3].parentNode.parentNode.insertRow(6);
-        row1.append(td1);
-        row1.append(td2);
+        const td1 = createTableCell(`
+            <nobr>
+                <a href="/usertransfers.php?id=${npsId}" style="text-decoration:none;">Протокол передач денег и предметов</a>
+                [<a href="/usertransfers.php?id=${npsId}"><b>»</b></a>]&nbsp;&nbsp;
+            </nobr>
+            <br>
+            <a href="/info.warstats.php?id=${npsId}" style="text-decoration:none;">Протоколы боёв</a>
+            [<a href="/info.warstats.php?id=${npsId}"><b>»</b></a>]&nbsp;&nbsp;
+            <br>
+            <nobr>
+                <a href="/info.ach.php?id=${npsId}" style="text-decoration:none;">Достижения игрока</a>
+                [<a href="/info.ach.php?id=${npsId}"><b>»</b></a>]&nbsp;&nbsp;
+            </nobr>
+        `, {
+            class: 'greenbrightbg',
+            valign: 'top',
+            align: 'right'
+        });
+
+        const td2 = createTableCell('', {
+            class: 'greenbrightbg',
+            valign: 'top',
+            align: 'left'
+        });
+
+        // Вставляем строки в таблицу
+        const tableRow = greenBgRedCells[3].closest('tr').parentNode;
+        tableRow.insertRow(5).append(td);
+        tableRow.insertRow(6).append(td1, td2);
     }
 })();
