@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name             [GW] NPC info
 // @description      Добавляет ссылки на проколы боев и передачу денег на страницу NPC.
-// @updateURL        https://github.com/TrueLies2k/gwars/raw/main/%5BGW%5D%20NPC%20info.user.js
-// @downloadURL      https://github.com/TrueLies2k/gwars/raw/main/%5BGW%5D%20NPC%20info.user.js
+// @updateURL        https://raw.githubusercontent.com/TrueLies2k/gwars/main/%5BGW%5D%20NPC%20info.user.js
+// @downloadURL      https://raw.githubusercontent.com/TrueLies2k/gwars/main/%5BGW%5D%20NPC%20info.user.js
 // @match            https://www.gwars.io/info.php?id=*
 // @version          0.2
 // @author           Respawn
